@@ -227,6 +227,11 @@ namespace uuv_simulator_ros
     private: geometry_msgs::TransformStamped nedTransform;
 
     private: tf2_ros::TransformBroadcaster tfBroadcaster;
+
+    /// HACK: dxy - to avoid log spam in the simulator, check that we 
+    /// don't publish transform multiple times by comparing time stamps
+    private: ros::Time lastPublishTime;
+
   };
 }
 

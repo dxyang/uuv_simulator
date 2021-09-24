@@ -204,7 +204,14 @@ void UnderwaterObjectROSPlugin::Update(const gazebo::common::UpdateInfo &_info)
 {
   UnderwaterObjectPlugin::Update(_info);
 
-  this->nedTransform.header.stamp = ros::Time::now();
+  ros::Time currentTime = ros::Time::now();
+  if (currentTime == this->lastPublishTime) {
+    return;
+  } else {
+    this->lastPublishTime = currentTime;
+  }
+
+  this->nedTransform.header.stamp = currentTime;
   this->tfBroadcaster.sendTransform(this->nedTransform);
 }
 
